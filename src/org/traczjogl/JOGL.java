@@ -81,25 +81,28 @@ public class JOGL implements GLEventListener {
         gl.glLoadIdentity();
     }
 
+    public void drawTriangleFan(float xsr, float ysr, float r, GL gl) {
+        float kat;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(xsr, ysr, -6.0f);
+        for (kat = 0.0f; kat < (2.0f * Math.PI);
+                kat += (Math.PI / 32.0f)) {
+            float x = r * (float) Math.sin(kat) + xsr;
+            float y = r * (float) Math.cos(kat) + ysr;
+
+            gl.glVertex3f(x, y, -6.0f);
+        }
+    }
+
     public void display(GLAutoDrawable drawable) {
-        //Tworzenie obiektu
+
         GL gl = drawable.getGL();
-        //Czyszczenie przestrzeni 3D przed utworzeniem kolejnej klatki
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
 
-        // KO£O
-        float x, y, kat;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, -6.0f); //œrodek
-        for (kat = 0.0f; kat < (2.0f * Math.PI);
-                kat += (Math.PI / 32.0f)) {
-            x = 2.5f * (float) Math.sin(kat);
-            y = 2.5f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, -6.0f); //kolejne punkty
-        }
-        gl.glEnd();
+        drawTriangleFan((float) 0.0, (float) 0.0, (float) 1.5, gl);
 
+        gl.glEnd();
         gl.glFlush();
     }
 
