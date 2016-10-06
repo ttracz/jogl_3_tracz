@@ -90,6 +90,7 @@ public class JOGL implements GLEventListener {
         
         //TRÓJK¥T
         gl.glBegin(GL.GL_TRIANGLES);
+        gl.glColor3f(1.0f,0.0f,0.0f);
         gl.glVertex3f(-1.0f, 1.0f, -6.0f);
         gl.glVertex3f(-2.0f, -1.0f, -6.0f);
         gl.glVertex3f(0.0f, -1.0f, -6.0f);
@@ -97,10 +98,11 @@ public class JOGL implements GLEventListener {
 
         // PROSTOK¥T
         gl.glBegin(GL.GL_QUADS);
-        gl.glVertex3f(1.0f, 1.0f, -3.0f);  
-        gl.glVertex3f(3.0f, 1.0f, -3.0f); 
-        gl.glVertex3f(3.0f, -1.0f, -3.0f);  
-        gl.glVertex3f(1.0f, -1.0f, -3.0f); 
+        gl.glColor3f(0.0f,1.0f,0.0f);
+        gl.glVertex3f(1.0f, 1.0f, -6.0f);  
+        gl.glVertex3f(3.0f, 1.0f, -6.0f); 
+        gl.glVertex3f(3.0f, -1.0f, -6.0f);  
+        gl.glVertex3f(1.0f, -1.0f, -6.0f); 
         gl.glEnd();
         //
         gl.glFlush();
