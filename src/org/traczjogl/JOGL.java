@@ -86,14 +86,23 @@ public class JOGL implements GLEventListener {
         GL gl = drawable.getGL();
         //Czyszczenie przestrzeni 3D przed utworzeniem kolejnej klatki
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        //Resetowanie macierzy transformacji
         gl.glLoadIdentity();
+        
+        //TRÓJK¥T
         gl.glBegin(GL.GL_TRIANGLES);
         gl.glVertex3f(-1.0f, 1.0f, -6.0f);
         gl.glVertex3f(-2.0f, -1.0f, -6.0f);
         gl.glVertex3f(0.0f, -1.0f, -6.0f);
         gl.glEnd();
 
+        // PROSTOK¥T
+        gl.glBegin(GL.GL_QUADS);
+        gl.glVertex3f(1.0f, 1.0f, -6.0f);  
+        gl.glVertex3f(3.0f, 1.0f, -6.0f); 
+        gl.glVertex3f(3.0f, -1.0f, -6.0f);  
+        gl.glVertex3f(1.0f, -1.0f, -6.0f); 
+        gl.glEnd();
+        //
         gl.glFlush();
     }
 
