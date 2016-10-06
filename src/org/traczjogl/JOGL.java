@@ -91,20 +91,50 @@ public class JOGL implements GLEventListener {
         //TRÓJK¥T
         gl.glBegin(GL.GL_TRIANGLES);
         gl.glColor3f(1.0f,0.0f,0.0f);
-        gl.glVertex3f(-1.0f, 1.0f, -6.0f);
-        gl.glVertex3f(-2.0f, -1.0f, -6.0f);
-        gl.glVertex3f(0.0f, -1.0f, -6.0f);
+        gl.glVertex3f(0.0f, 1.0f, -6.0f);
+        gl.glVertex3f(-1.0f, -1.0f, -6.0f);
+        gl.glVertex3f(1.0f, -1.0f, -6.0f);
         gl.glEnd();
 
         // PROSTOK¥T
         gl.glBegin(GL.GL_QUADS);
-        gl.glColor3f(0.0f,1.0f,0.0f);
-        gl.glVertex3f(1.0f, 1.0f, -6.0f);  
-        gl.glVertex3f(3.0f, 1.0f, -6.0f); 
-        gl.glVertex3f(3.0f, -1.0f, -6.0f);  
+        gl.glColor3f(0.5f,0.5f,0.5f);
+        gl.glVertex3f(-1.0f, -1.0f, -6.0f);  
         gl.glVertex3f(1.0f, -1.0f, -6.0f); 
+        gl.glVertex3f(1.0f, -3.0f, -6.0f);  
+        gl.glVertex3f(-1.0f, -3.0f, -6.0f); 
+        gl.glEnd();
+        
+        // DRZWI
+        gl.glBegin(GL.GL_QUADS);
+        gl.glColor3f(0.3f,0.2f,0.2f);
+        gl.glVertex3f(-0.5f, -2.0f, -5.5f);  
+        gl.glVertex3f(0.5f, -2.0f, -5.5f); 
+        gl.glVertex3f(0.5f, -3.0f, -5.5f);  
+        gl.glVertex3f(-0.5f, -3.0f, -5.5f); 
         gl.glEnd();
         //
+        
+        // OKNO1
+        gl.glBegin(GL.GL_QUADS);
+        gl.glColor3f(0.0f,0.0f,1.0f);
+        gl.glVertex3f(-0.75f, -1.25f, -5.5f);  
+        gl.glVertex3f(-0.25f, -1.25f, -5.5f); 
+        gl.glVertex3f(-0.25f, -1.75f, -5.5f);  
+        gl.glVertex3f(-0.75f, -1.75f, -5.5f); 
+        gl.glEnd();
+        //
+        
+        // OKNO2
+        gl.glBegin(GL.GL_QUADS);
+        gl.glColor3f(0.0f,0.0f,1.0f);
+        gl.glVertex3f(0.25f, -1.25f, -5.5f);  
+        gl.glVertex3f(0.75f, -1.25f, -5.5f); 
+        gl.glVertex3f(0.75f, -1.75f, -5.5f);  
+        gl.glVertex3f(0.25f, -1.75f, -5.5f); 
+        gl.glEnd();
+        //
+        
         gl.glFlush();
     }
 
