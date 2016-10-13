@@ -129,38 +129,27 @@ public class JOGL implements GLEventListener {
         //Tu piszemy kod tworz¹cy obiekty 3D
         // Flush all drawing operations to the graphics card
 
-        // KO£O 1
-        float x, y, x2, y2, kat, kat2, kat3;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glColor3f(0.0f, 0.0f, 1.0f);
-        gl.glVertex3f(0.0f, 0.0f, 0.0f); //œrodek
-        for (kat = 0.0f; kat < (2.0f * Math.PI);
-                kat += (Math.PI / 32.0f)) {
-            x = 1.0f * (float) Math.sin(kat);
-            y = 1.0f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, 0.0f); //kolejne punkty
-        }
-        gl.glEnd();
-        // KO£O 2
+        float x, y, kat1, kat2;
+        // KO£O 
         gl.glBegin(GL.GL_TRIANGLE_FAN);
         gl.glColor3f(0.0f, 1.0f, 1.0f);
         gl.glVertex3f(0.0f, 0.0f, 2.0f); //œrodek
-        for (kat2 = (float) (2.0f * Math.PI); kat2 > 0.0f;
-                kat2 -= (Math.PI / 32.0f)) {
-            x = 1.0f * (float) Math.sin(kat2);
-            y = 1.0f * (float) Math.cos(kat2);
+        for (kat1 = (float) (2.0f * Math.PI); kat1 > 0.0f;
+                kat1 -= (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat1);
+            y = 1.0f * (float) Math.cos(kat1);
             gl.glVertex3f(x, y, 2.0f); //kolejne punkty
         }
         gl.glEnd();
         // PROSTOK¥TY
         gl.glBegin(GL.GL_QUAD_STRIP);
         gl.glColor3f(1.0f, 0.0f, 0.0f);
-        for (kat3 = (float) (2.0f * Math.PI); kat3 > 0.0f;
-                kat3 -= (Math.PI / 32.0f)) {
-            x = 1.0f * (float) Math.sin(kat3);
-            y = 1.0f * (float) Math.cos(kat3);
+        for (kat2 = (float) (2.0f * Math.PI); kat2 > 0.0f;
+                kat2 -= (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat2);
+            y = 1.0f * (float) Math.cos(kat2);
             gl.glVertex3f(x, y, 2.0f);
-            gl.glVertex3f(x, y, 0.0f);
+            gl.glVertex3f(0.0f, 0.0f, 0.0f);
         }
         gl.glEnd();
         gl.glFlush();
