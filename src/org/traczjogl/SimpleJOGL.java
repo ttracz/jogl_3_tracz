@@ -194,6 +194,7 @@ public class SimpleJOGL implements GLEventListener {
 
     public void rysujChoinke(GL gl)
     {
+        gl.glPushMatrix();
         walec(gl);
         gl.glTranslatef(0.0f, 0.0f, -1.0f);
         stozek(gl);  
@@ -203,6 +204,7 @@ public class SimpleJOGL implements GLEventListener {
         gl.glTranslatef(0.0f, 0.0f, -1.5f);
         gl.glScalef(0.5f, 0.5f, 0.5f);
         stozek(gl);
+        gl.glPopMatrix();
     }
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
@@ -216,8 +218,19 @@ public class SimpleJOGL implements GLEventListener {
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó³ osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó³ osi Y
         
-
-        rysujChoinke(gl);
+        for (int i=0; i<10; i++)
+        {            
+            rysujChoinke(gl);
+            gl.glTranslatef(2.0f, 2.0f, 0.0f); 
+        }
+        
+        gl.glTranslatef(0.0f, 3.0f, 0.0f);
+        for (int i=0; i<10; i++)
+        {
+            rysujChoinke(gl);
+            gl.glTranslatef(-2.0f, -2.0f, 0.0f); 
+        }
+        
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }
