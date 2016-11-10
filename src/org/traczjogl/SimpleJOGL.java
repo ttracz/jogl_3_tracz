@@ -122,10 +122,19 @@ public class SimpleJOGL implements GLEventListener {
             height = 1;
         }
         final float h = (float) width / (float) height;
-        gl.glViewport(0, 0, width, height);
+        //gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(100.0f, h, 1.0, 20.0);
+        //glu.gluPerspective(100.0f, h, 1.0, 80.0);
+        gl.glViewport(0, 0, width/2, height/2);
+        float ilor;
+        if (width <= height) {
+            ilor = height / width;
+            gl.glOrtho(-10.0f, 10.0f, -10.0f * ilor, 10.0f * ilor, -10.0f, 40.0f);
+        } else {
+            ilor = width / height;
+            gl.glOrtho(-10.0f * ilor, 10.0f * ilor, -10.0f, 10.0f, -10.0f, 40.0f);
+        }
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
     }
@@ -192,20 +201,20 @@ public class SimpleJOGL implements GLEventListener {
         gl.glEnd();
     }
 
-    public void rysujChoinke(GL gl)
-    {
+    public void rysujChoinke(GL gl) {
         gl.glPushMatrix();
         walec(gl);
         gl.glTranslatef(0.0f, 0.0f, -1.0f);
-        stozek(gl);  
+        stozek(gl);
         gl.glTranslatef(0.0f, 0.0f, -1.5f);
         gl.glScalef(0.5f, 0.5f, 0.5f);
-        stozek(gl);  
+        stozek(gl);
         gl.glTranslatef(0.0f, 0.0f, -1.5f);
         gl.glScalef(0.5f, 0.5f, 0.5f);
         stozek(gl);
         gl.glPopMatrix();
     }
+
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
 
@@ -217,20 +226,18 @@ public class SimpleJOGL implements GLEventListener {
         gl.glTranslatef(0.0f, 0.0f, -6.0f); //przesuniêcie o 6 jednostek
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó³ osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó³ osi Y
-        
-        for (int i=0; i<10; i++)
-        {            
+
+        for (int i = 0; i < 10; i++) {
             rysujChoinke(gl);
-            gl.glTranslatef(2.0f, 2.0f, 0.0f); 
+            gl.glTranslatef(2.0f, 2.0f, 0.0f);
         }
-        
+
         gl.glTranslatef(0.0f, 3.0f, 0.0f);
-        for (int i=0; i<10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             rysujChoinke(gl);
-            gl.glTranslatef(-2.0f, -2.0f, 0.0f); 
+            gl.glTranslatef(-2.0f, -2.0f, 0.0f);
         }
-        
+
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }
