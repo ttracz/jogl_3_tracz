@@ -30,13 +30,13 @@ import javax.swing.JOptionPane;
  */
 public class SimpleJOGL implements GLEventListener {
 
-    //statyczne pola okre?laj?ce rotacj? wokó? osi X i Y
+    //statyczne pola okre?laj?ce rotacj? wok?? osi X i Y
     private static float xrot = 0.0f, yrot = 0.0f;
     static Koparka koparka;
     static BufferedImage image1 = null, image2 = null;
     static Texture t1 = null, t2 = null;
 
-    public static float ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};//swiat?o otaczajšce
+    public static float ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};//swiat?o otaczaj?ce
     public static float diffuseLight[] = {0.7f, 0.7f, 0.7f, 1.0f};//?wiat?o rozproszone
     public static float specular[] = {1.0f, 1.0f, 1.0f, 1.0f}; //?wiat?o odbite
     public static float lightPos[] = {0.0f, 150.0f, 150.0f, 1.0f};//pozycja ?wiat?a
@@ -138,19 +138,19 @@ public class SimpleJOGL implements GLEventListener {
         gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
 
-        //wy??czenie wewn?trzych stron prymitywów
+        //wy??czenie wewn?trzych stron prymityw?w
         gl.glEnable(GL.GL_CULL_FACE);
 
-        //(czwarty parametr okre?la odleg?o?? ?ród?a:
+        //(czwarty parametr okre?la odleg?o?? ?r?d?a:
         //0.0f-niesko?czona; 1.0f-okre?lona przez pozosta?e parametry)
         gl.glEnable(GL.GL_LIGHTING); //uaktywnienie o?wietlenia
-        //ustawienie parametrów ?ród?a ?wiat?a nr. 0
+        //ustawienie parametr?w ?r?d?a ?wiat?a nr. 0
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambientLight, 0); //swiat?o otaczaj?ce
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuseLight, 0); //?wiat?o rozproszone
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0); //?wiat?o odbite
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPos, 0); //pozycja ?wiat?a
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPOT_DIRECTION, direction, 0);
-        gl.glEnable(GL.GL_LIGHT0); //uaktywnienie ?ród?a ?wiat?a nr. 0
+        gl.glEnable(GL.GL_LIGHT0); //uaktywnienie ?r?d?a ?wiat?a nr. 0
 
         gl.glLightfv(GL.GL_LIGHT1, GL.GL_AMBIENT, ambientLight, 0);
         gl.glLightfv(GL.GL_LIGHT1, GL.GL_DIFFUSE, diffuseLight, 0);
@@ -158,10 +158,10 @@ public class SimpleJOGL implements GLEventListener {
         gl.glLightfv(GL.GL_LIGHT1, GL.GL_POSITION, lightPos2, 0);
         gl.glEnable(GL.GL_LIGHT1);
 
-        gl.glEnable(GL.GL_COLOR_MATERIAL); //uaktywnienie ?ledzenia kolorów
+        gl.glEnable(GL.GL_COLOR_MATERIAL); //uaktywnienie ?ledzenia kolor?w
         //kolory b?d? ustalane za pomoc? glColor
         gl.glColorMaterial(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE);
-        //Ustawienie jasno?ci i odblaskowo?ci obiektów
+        //Ustawienie jasno?ci i odblaskowo?ci obiekt?w
         float specref[] = {1.0f, 1.0f, 1.0f, 1.0f}; //parametry odblaskowo?ci
         gl.glMaterialfv(GL.GL_FRONT, GL.GL_SPECULAR, specref, 0);
 
@@ -204,16 +204,7 @@ public class SimpleJOGL implements GLEventListener {
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(100.0f, h, 1.0, 200.0);
-        //gl.glViewport(0, 0, width/2, height/2);
-        /*float ilor=0;
-         if (width <= height) {
-         ilor = height / width;
-         gl.glOrtho(-10.0f, 10.0f, -10.0f * ilor, 10.0f * ilor, -10.0f, 10.0f);
-         } else {
-         ilor = width / height;
-         gl.glOrtho(-10.0f * ilor, 10.0f * ilor, -10.0f, 10.0f, -10.0f, 10.0f);
-         }*/
+        glu.gluPerspective(50.0f, h, 1.0, 200.0);
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
 
@@ -324,178 +315,53 @@ public class SimpleJOGL implements GLEventListener {
         return norm;
     }
 
-    void walec(GL gl) {
-//wywo?ujemy automatyczne normalizowanie normalnych
-//bo operacja skalowania je zniekszta?ci
-        gl.glEnable(GL.GL_NORMALIZE);
-        float x, y, kat;
-        gl.glBegin(GL.GL_QUAD_STRIP);
-        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
-            x = 0.5f * (float) Math.sin(kat);
-            y = 0.5f * (float) Math.cos(kat);
-            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), 0.0f);
-            gl.glVertex3f(x, y, -1.0f);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-        gl.glNormal3f(0.0f, 0.0f, -1.0f);
-        x = y = kat = 0.0f;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, -1.0f); //srodek kola
-        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
-            x = 0.5f * (float) Math.sin(kat);
-            y = 0.5f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, -1.0f);
-        }
-        gl.glEnd();
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);
-        x = y = kat = 0.0f;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
-        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
-            x = 0.5f * (float) Math.sin(kat);
-            y = 0.5f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-    }
-
-    void stozek(GL gl) {
-//wywo?ujemy automatyczne normalizowanie normalnych
-        gl.glEnable(GL.GL_NORMALIZE);
-        float x, y, kat;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, -2.0f); //wierzcholek stozka
-        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
-            x = (float) Math.sin(kat);
-            y = (float) Math.cos(kat);
-            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), -2.0f);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);
-        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
-        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
-            x = (float) Math.sin(kat);
-            y = (float) Math.cos(kat);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-    }
-
-    void choinka(GL gl) {
-        gl.glPushMatrix();
-        gl.glColor3f(0.139f, 0.061f, 0.019f);
-        gl.glScalef(0.4f, 0.4f, 0.4f);
-        walec(gl);
-        gl.glTranslatef(0.0f, 0.0f, -0.5f);
-        gl.glScalef(2.0f, 2.0f, 1.5f);
-        gl.glColor3f(0f, 0.102f, 0.051f);
-        stozek(gl);
-        gl.glTranslatef(0.0f, 0.0f, -1.1f);
-        gl.glScalef(0.7f, 0.7f, 0.7f);
-        stozek(gl);
-        gl.glTranslatef(0.0f, 0.0f, -1.1f);
-        gl.glScalef(0.7f, 0.7f, 0.7f);
-        stozek(gl);
-        gl.glEnd();
-        gl.glPopMatrix();
-    }
-
-    public void display(GLAutoDrawable drawable) {
-//Tworzenie obiektu
+     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-//Czyszczenie przestrzeni 3D przed utworzeniem kolejnej klatki
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        //Resetowanie macierzy transformacji
-        gl.glLoadIdentity();
 
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+
+        gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.0f, -6.0f); //przesuni?cie o 6 jednostek
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó? osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó? osi Y
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambientLight, 0); //swiat?o otaczaj?ce
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuseLight, 0); //?wiat?o rozproszone
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0); //?wiat?o odbite
-        gl.glScalef(2, 2, 2);
 
-        gl.glBegin(GL.GL_QUADS);
-        
-        gl.glBindTexture(GL.GL_TEXTURE_2D, t1.getTextureObject());
-        gl.glTexCoord2f(0, 1);
-        gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-        gl.glTexCoord2f(0, 0);
-        gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-        gl.glTexCoord2f(1, 0);
-        gl.glVertex3f(1.0f, -1.0f, -1.0f);
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3f(1.0f, -1.0f, 1.0f);
-        gl.glEnd();
-        
-        gl.glBegin(GL.GL_TRIANGLES);
-        gl.glBindTexture(GL.GL_TEXTURE_2D, t2.getTextureObject());
-        
-        float[] scianka1 = {-1.0f, -1.0f, 1.0f, //wpó?rz?dne pierwszego punktu
-            1.0f, -1.0f, 1.0f, //wspó?rz?dne drugiego punktu
-            0.0f, 1.0f, 0.0f}; //wspó?rz?dne trzeciego punktu
-        float[] normalna1 = WyznaczNormalna(scianka1, 0, 3, 6);
-        
-        gl.glNormal3fv(normalna1, 0);
-        gl.glTexCoord2f(0, 1);
-        gl.glVertex3fv(scianka1, 0);
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3fv(scianka1, 3);
-        gl.glTexCoord2f(0, 0);
-        gl.glVertex3fv(scianka1, 6);
-        gl.glEnd();
-        
-        gl.glBegin(GL.GL_TRIANGLES);
-        gl.glBindTexture(GL.GL_TEXTURE_2D, t2.getTextureObject());
-        
-        float[] scianka2 = {1.0f, -1.0f, -1.0f, //wpó?rz?dne pierwszego punktu
-            -1.0f, -1.0f, -1.0f, //wspó?rz?dne drugiego punktu
-            0.0f, 1.0f, 0.0f}; //wspó?rz?dne trzeciego punktu
-        float[] normalna2 = WyznaczNormalna(scianka2, 0, 3, 6);
 
-        gl.glNormal3fv(normalna2, 0);
-        gl.glTexCoord2f(0, 1);
-        gl.glVertex3fv(scianka2, 0); //wspó?rz?dne 1-go punktu zaczynaj? si? od indeksu 0
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3fv(scianka2, 3); //wspó?rz?dne 2-go punktu zaczynaj? si? od indeksu 3
-        gl.glTexCoord2f(0, 0);
-        gl.glVertex3fv(scianka2, 6); //wspó?rz?dne 3-go punktu zaczynaj? si? od indeksu 6
+        // KO?O 1
+        float x, y, x2, y2, kat, kat2, kat3;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        gl.glVertex3f(0.0f, 0.0f, 0.0f); //?rodek
+        for (kat = 0.0f; kat < (2.0f * Math.PI);
+                kat += (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat);
+            y = 1.0f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 0.0f); //kolejne punkty
+        }
         gl.glEnd();
-        gl.glBegin(GL.GL_TRIANGLES);
-        gl.glBindTexture(GL.GL_TEXTURE_2D, t2.getTextureObject());
-        float[] scianka3 = {-1.0f, -1.0f, -1.0f, //wpó?rz?dne pierwszego punktu
-            -1.0f, -1.0f, 1.0f, //wspó?rz?dne drugiego punktu
-            0.0f, 1.0f, 0.0f}; //wspó?rz?dne trzeciego punktu
-        float[] normalna3 = WyznaczNormalna(scianka3, 0, 3, 6);
-
-        gl.glNormal3fv(normalna3, 0);
-        gl.glTexCoord2f(0, 1);
-        gl.glVertex3fv(scianka3, 0); //wspó?rz?dne 1-go punktu zaczynaj? si? od indeksu 0
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3fv(scianka3, 3); //wspó?rz?dne 2-go punktu zaczynaj? si? od indeksu 3
-        gl.glTexCoord2f(0, 0);
-        gl.glVertex3fv(scianka3, 6); //wspó?rz?dne 3-go punktu zaczynaj? si? od indeksu 6
+        // KO?O 2
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        gl.glVertex3f(0.0f, 0.0f, 2.0f); //?rodek
+        for (kat2 = (float) (2.0f * Math.PI); kat2 > 0.0f;
+                kat2 -= (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat2);
+            y = 1.0f * (float) Math.cos(kat2);
+            gl.glVertex3f(x, y, 2.0f); //kolejne punkty
+            
+        }
         gl.glEnd();
-        
-        gl.glBegin(GL.GL_TRIANGLES);
-        gl.glBindTexture(GL.GL_TEXTURE_2D, t2.getTextureObject());
-        float[] scianka4 = {1.0f, -1.0f, 1.0f,
-            1.0f, -1.0f, -1.0f, //wspó?rz?dne drugiego punktu
-            0.0f, 1.0f, 0.0f}; //wspó?rz?dne trzeciego punktu
-        float[] normalna4 = WyznaczNormalna(scianka4, 0, 3, 6);
-        gl.glTexCoord2f(0, 1);
-        gl.glNormal3fv(normalna4, 0);
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3fv(scianka4, 0); //wspó?rz?dne 1-go punktu zaczynaj? si? od indeksu 0
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3fv(scianka4, 3); //wspó?rz?dne 2-go punktu zaczynaj? si? od indeksu 3
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex3fv(scianka4, 6); //wspó?rz?dne 3-go punktu zaczynaj? si? od indeksu 6
-
+        // PROSTOK?TY
+        gl.glBegin(GL.GL_QUAD_STRIP);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        for (kat3 = (float) (2.0f * Math.PI); kat3 > 0.0f;
+                kat3 -= (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat3);
+            y = 1.0f * (float) Math.cos(kat3);
+            gl.glTexCoord2f(kat3/7, 0.0f);
+            gl.glVertex3f(x, y, 2.0f);
+            gl.glTexCoord2f(kat3/7, 1.0f);
+            gl.glVertex3f(x, y, 0.0f);
+        }
         gl.glEnd();
         gl.glFlush();
     }
